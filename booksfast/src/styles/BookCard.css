@@ -1,7 +1,5 @@
-/* Em BookCard.css */
-
 .card {
-  flex: 0 0 calc(25% - 16px); /* Ajuste conforme necessário */
+  flex: 0 0 calc(25% - 16px);
   border: 1px solid #ccc;
   border-radius: 8px;
   padding: 16px;
@@ -9,6 +7,16 @@
   text-align: center;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   background-color: #fff;
+  cursor: pointer; /* Adiciona cursor de ponteiro para indicar que é clicável */
+  transition: transform 0.3s ease-in-out; /* Adiciona uma transição suave ao hover */
+
+  /* Garante que o card seja um quadrado */
+  width: calc(25% - 16px);
+  height: calc(25% - 16px);
+}
+
+.card:hover {
+  transform: scale(1.05); /* Aumenta o tamanho do card ao passar o mouse */
 }
 
 .pdf-viewer {
@@ -22,13 +30,11 @@
 }
 
 .card h3 {
-  font-size: 16px; /* Ajuste conforme necessário */
+  font-size: 16px;
   margin-bottom: 8px;
 }
 
 .card p {
-  font-size: 14px; /* Ajuste conforme necessário */
+  font-size: 14px;
   color: #555;
 }
-
-/* Adicione estilos adicionais conforme necessário */

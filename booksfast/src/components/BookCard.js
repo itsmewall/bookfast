@@ -1,15 +1,15 @@
 import React from 'react';
 import '../styles/BookCard.css';
 
-const BookCard = ({ chapter }) => {
-  if (!chapter || !chapter.titulo) {
+const BookCard = ({ book, onCardClick }) => {
+  if (!book || !book.titulo) {
     return null;
   }
 
   return (
-    <div className="book-card">
-      <h3>{chapter.titulo}</h3>
-      <p>{chapter.conteudo}</p>
+    <div className="book-card" onClick={() => onCardClick(book)}>
+      <h3>{book.titulo}</h3>
+      <p>Autor: {book.autor}</p>
     </div>
   );
 };

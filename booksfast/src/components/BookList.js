@@ -1,10 +1,10 @@
-// Em BookList.js
 import React, { useState, useEffect } from 'react';
 import BookCard from './BookCard';
 import '../styles/BookList.css';
 
 const BookList = () => {
-  const [book, setBook] = useState({ livro: { titulo: '', capitulos: [] } });
+  const [book, setBook] = useState({ livro: { titulo: '', autor: '', capitulos: [] } });
+  const [showChapters, setShowChapters] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -23,11 +23,20 @@ const BookList = () => {
     fetchData();
   }, []);
 
+  const handleCardClick = (clickedBook) => {
+    // Ao clicar no card, exibe ou esconde os capítulos
+    setShowChapters(!showChapters);
+  };
+
   return (
     <div className="book-list">
-      <h2>{book.livro.titulo}</h2>
-      {book.livro.capitulos && book.livro.capitulos.map((chapter) => (
-        <BookCard key={chapter.titulo} chapter={chapter} />
+   
+      <BookCard book={book.livro} onCardClick={handleCardClick} />
+      {showChapters && book.livro.capitulos && book.livro.capitulos.map((chapter) => (
+        <div key={chapter.titulo} className="chapter">
+          <h4>{chapter.titulo}</h4>
+          <p>{chapter.conteudo}</p>
+        </div>
       ))}
     </div>
   );
