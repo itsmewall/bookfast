@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { Document, Page } from 'react-pdf';
 
-const PdfViewer = ({ pdfFileName }) => {
+const PdfViewer = ({ pdfFileName, onClose }) => {
   const [bookData, setBookData] = useState(null);
 
   useEffect(() => {
     const fetchBookData = async () => {
       try {
-        const response = await fetch('http://localhost:5000/api/bookdata');
+        const response = await fetch(`http://localhost:5000/api/bookdata`);
         const booksData = await response.json();
-        
-        // Encontrar o livro com base no pdfFileName
+
         const matchingBook = booksData.find(book => book.pdfFileName === pdfFileName);
 
         if (matchingBook) {
@@ -26,15 +26,18 @@ const PdfViewer = ({ pdfFileName }) => {
   }, [pdfFileName]);
 
   if (!bookData) {
-    return null; // Pode exibir um indicador de carregamento aqui se necessário
+    return null;
   }
 
   const pdfUrl = `http://localhost:5000/livros/${encodeURIComponent(bookData.title)}.pdf`;
 
   return (
-    <object data={pdfUrl} type="application/pdf" width="100%" height="500">
-      <p>Seu navegador não suporta visualização de PDF. Você pode baixá-lo <a href={pdfUrl}>aqui</a>.</p>
-    </object>
+    <div className="pdf-viewer">
+      <button onClick={onClose}>Fechar PDF</button>
+      <Document file={pdfUrl} onLoadSuccess={console.log}>
+        <Page pageNumber={1} />
+      </Document>
+    </div>
   );
 };
 
