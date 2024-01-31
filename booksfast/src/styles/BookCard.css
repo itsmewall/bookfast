@@ -38,3 +38,20 @@
   font-size: 14px;
   color: #555;
 }
+
+/* Em BookCard.css */
+.modal-content {
+  background-color: #fff;
+  padding: 16px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 80%;
+  max-height: 80%;
+  overflow-y: auto;
+}
+
+/* Adicione estilos adicionais conforme necessário */

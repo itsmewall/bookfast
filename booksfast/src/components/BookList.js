@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import BookCard from './BookCard';
 import '../styles/BookList.css';
 
 const BookList = () => {
-  const [book, setBook] = useState({ livro: { titulo: '', autor: '', capitulos: [] } });
-  const [showChapters, setShowChapters] = useState(false);
+  const [book, setBook] = useState({ titulo: '', capitulos: [] });
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -13,7 +14,7 @@ const BookList = () => {
         const bookData = await response.json();
 
         if (bookData.livro) {
-          setBook(bookData);
+          setBook(bookData.livro);
         }
       } catch (error) {
         console.error(error.message);
@@ -23,21 +24,9 @@ const BookList = () => {
     fetchData();
   }, []);
 
-  const handleCardClick = (clickedBook) => {
-    // Ao clicar no card, exibe ou esconde os capítulos
-    setShowChapters(!showChapters);
-  };
-
   return (
     <div className="book-list">
-   
-      <BookCard book={book.livro} onCardClick={handleCardClick} />
-      {showChapters && book.livro.capitulos && book.livro.capitulos.map((chapter) => (
-        <div key={chapter.titulo} className="chapter">
-          <h4>{chapter.titulo}</h4>
-          <p>{chapter.conteudo}</p>
-        </div>
-      ))}
+      <BookCard book={book} navigate={navigate} />
     </div>
   );
 };
